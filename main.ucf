@@ -1,0 +1,90 @@
+# main.ucf
+# User Constraints File for Xilinx Spartan-3 FPGA
+# This file defines pin assignments and electrical characteristics
+# for all signals in the hangman game project.
+
+# ============================================================================
+# Physical Pin Location Constraints (LOC)
+# ============================================================================
+# These constraints assign physical FPGA pins to logical signal names
+
+# System signals
+NET "CLK" LOC = E12;    # System clock input (50 MHz)
+NET "rst" LOC = T15;    # Reset button input
+
+# PS/2 keyboard interface pins
+NET "ps2c" LOC = W12;   # PS/2 clock signal (from keyboard)
+NET "ps2d" LOC = V11;   # PS/2 data signal (from keyboard)
+
+# LCD control signals
+NET "RS" LOC = Y14;     # LCD Register Select (0=command, 1=data)
+NET "RW" LOC = W13;     # LCD Read/Write (0=write, 1=read)
+NET "OE" LOC = AB4;     # LCD Output Enable (active low)
+
+# ============================================================================
+# I/O Standard and Electrical Characteristics
+# ============================================================================
+# All signals use LVCMOS33 (3.3V logic) standard
+
+# System signals
+NET "CLK" IOSTANDARD = LVCMOS33;  # Clock: 3.3V CMOS
+NET "rst" IOSTANDARD = LVCMOS33;   # Reset: 3.3V CMOS
+
+# PS/2 interface: requires special settings for open-drain communication
+NET "ps2c" IOSTANDARD = LVCMOS33;  # PS/2 clock: 3.3V CMOS
+NET "ps2c" DRIVE = 8;              # Drive strength: 8 mA
+NET "ps2c" SLEW = SLOW;            # Slew rate: slow (reduces EMI)
+NET "ps2c" PULLUP;                 # Internal pull-up resistor (required for PS/2)
+
+NET "ps2d" IOSTANDARD = LVCMOS33;  # PS/2 data: 3.3V CMOS
+NET "ps2d" DRIVE = 8;              # Drive strength: 8 mA
+NET "ps2d" SLEW = SLOW;            # Slew rate: slow (reduces EMI)
+NET "ps2d" PULLUP;                 # Internal pull-up resistor (required for PS/2)
+
+# LCD control signals
+NET "RS" IOSTANDARD = LVCMOS33;    # Register Select: 3.3V CMOS
+NET "RW" IOSTANDARD = LVCMOS33;    # Read/Write: 3.3V CMOS
+NET "OE" IOSTANDARD = LVCMOS33;    # Output Enable: 3.3V CMOS
+
+# LCD data bus (8 bits)
+NET "LCD_DB[7]" IOSTANDARD = LVCMOS33;  # Data bit 7: 3.3V CMOS
+NET "LCD_DB[6]" IOSTANDARD = LVCMOS33;  # Data bit 6: 3.3V CMOS
+NET "LCD_DB[5]" IOSTANDARD = LVCMOS33;  # Data bit 5: 3.3V CMOS
+NET "LCD_DB[4]" IOSTANDARD = LVCMOS33;  # Data bit 4: 3.3V CMOS
+NET "LCD_DB[3]" IOSTANDARD = LVCMOS33;  # Data bit 3: 3.3V CMOS
+NET "LCD_DB[2]" IOSTANDARD = LVCMOS33;  # Data bit 2: 3.3V CMOS
+NET "LCD_DB[1]" IOSTANDARD = LVCMOS33;  # Data bit 1: 3.3V CMOS
+NET "LCD_DB[0]" IOSTANDARD = LVCMOS33;  # Data bit 0: 3.3V CMOS
+
+# Debug output: current key code (8 bits)
+NET "tecla[7]" IOSTANDARD = LVCMOS33;  # Debug bit 7: 3.3V CMOS
+NET "tecla[6]" IOSTANDARD = LVCMOS33;  # Debug bit 6: 3.3V CMOS
+NET "tecla[5]" IOSTANDARD = LVCMOS33;  # Debug bit 5: 3.3V CMOS
+NET "tecla[4]" IOSTANDARD = LVCMOS33;  # Debug bit 4: 3.3V CMOS
+NET "tecla[3]" IOSTANDARD = LVCMOS33;  # Debug bit 3: 3.3V CMOS
+NET "tecla[2]" IOSTANDARD = LVCMOS33;  # Debug bit 2: 3.3V CMOS
+NET "tecla[1]" IOSTANDARD = LVCMOS33;  # Debug bit 1: 3.3V CMOS
+NET "tecla[0]" IOSTANDARD = LVCMOS33;  # Debug bit 0: 3.3V CMOS
+
+# ============================================================================
+# Physical Pin Locations for Data Buses
+# ============================================================================
+# LCD data bus pin assignments
+NET "LCD_DB[7]" LOC = Y15;   # MSB: LCD data bit 7
+NET "LCD_DB[6]" LOC = AB16;  # LCD data bit 6
+NET "LCD_DB[5]" LOC = Y16;   # LCD data bit 5
+NET "LCD_DB[4]" LOC = AA12;  # LCD data bit 4
+NET "LCD_DB[3]" LOC = AB12;  # LCD data bit 3
+NET "LCD_DB[2]" LOC = AB17;  # LCD data bit 2
+NET "LCD_DB[1]" LOC = AB18;  # LCD data bit 1
+NET "LCD_DB[0]" LOC = Y13;   # LSB: LCD data bit 0
+
+# Debug output pin assignments
+NET "tecla[7]" LOC = W21;    # MSB: Debug output bit 7
+NET "tecla[6]" LOC = Y22;    # Debug output bit 6
+NET "tecla[5]" LOC = V20;    # Debug output bit 5
+NET "tecla[4]" LOC = V19;    # Debug output bit 4
+NET "tecla[3]" LOC = U19;    # Debug output bit 3
+NET "tecla[2]" LOC = U20;    # Debug output bit 2
+NET "tecla[1]" LOC = T19;    # Debug output bit 1
+NET "tecla[0]" LOC = R20;    # LSB: Debug output bit 0
